@@ -10,6 +10,7 @@ class OutputTree : public TTree {
 public:
   OutputTree(const std::string& name="output");
 
+  void add_scalar(const std::string& name, float val);
   void add_vector(const std::string& name, const std::vector<float>& vec);
   
   void add_photon_type(const std::string& name);
@@ -33,6 +34,7 @@ public:
   void clear();
   
 private:
+  std::map<std::string, float* > scalar_vars;
   std::map<std::string, std::vector<float> > vector_vars;
 
   std::map<std::string, std::vector<float> > jet_vars;

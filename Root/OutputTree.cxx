@@ -7,6 +7,22 @@ OutputTree::OutputTree(const std::string& name) :
 {
 }
 
+void OutputTree::add_scalar(const std::string& name, float val) {
+  if (scalar_vars.count(name) == 0) {
+    float* ptr = new float(0);
+    TBranch* b = Branch(name.c_str(), ptr);
+
+    scalar_vars[name] = ptr;
+
+    int n_entries = GetEntries();
+    for (int i = 0; i < n_entries; ++i) {
+      b->Fill();
+    }
+  }
+
+  *(scalar_vars[name]) = val;
+}
+
 void OutputTree::add_vector(const std::string& name, const std::vector<float>& vec) {
   if (vector_vars.count(name) == 0) {
     TBranch* b = Branch(name.c_str(), &vector_vars[name]);
@@ -156,6 +172,9 @@ void OutputTree::add_truths(const std::string& name, const std::vector<const xAO
 }
 
 void OutputTree::clear() {
+  for (auto &p : scalar_vars) {
+    *(p.second) = 0;
+  }
   for (auto &p : vector_vars) {
     p.second.clear();
   }
