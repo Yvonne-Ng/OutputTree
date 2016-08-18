@@ -21,6 +21,7 @@ public:
   
   void add_jet(const std::string& name, const TLorentzVector& j);
   void add_jet(const std::string& name, const fastjet::PseudoJet& j);
+  void add_jet(const std::string& name, const xAOD::Jet* j);
   void add_jets(const std::string& name, const std::vector<TLorentzVector>& jets);
   void add_jets(const std::string& name, const std::vector<fastjet::PseudoJet>& jets);
   void add_jets(const std::string& name, const xAOD::JetContainer* jets);

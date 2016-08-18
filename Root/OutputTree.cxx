@@ -101,6 +101,10 @@ void OutputTree::add_jet(const std::string& name, const fastjet::PseudoJet& j) {
   jet_vars[name+"_m"].push_back(j.m());
 }
 
+void OutputTree::add_jet(const std::string& name, const xAOD::Jet* j) {
+  add_jet(name, j->p4());
+}
+
 void OutputTree::add_jets(const std::string& name, const std::vector<TLorentzVector>& jets) {
   for (auto j : jets) {
     add_jet(name, j);
